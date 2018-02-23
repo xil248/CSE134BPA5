@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import '../../styles/Restaurants.css'
-import '../../images/'
+// import '../../images/'
 
 class HomePage extends React.Component {
   
