@@ -3,6 +3,7 @@ import React, {PropTypes} from 'react';
 import Header from './common/Header';
 import NavBar from './client/NavBar';
 import {connect} from 'react-redux';
+import '../styles/Homepage.css';
 
 // class App extends React.Component {
 //   render() {
@@ -20,9 +21,11 @@ import {connect} from 'react-redux';
 class App extends React.Component {
   render() {
     return (
-      <div className="container-fluid">
-        <NavBar/>
-        {this.props.children}
+      <div>
+        <NavBar/><br/>
+        <div style={{margin:'70px'}}>
+          {this.props.children}
+        </div>
       </div>
     );
   }

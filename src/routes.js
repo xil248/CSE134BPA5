@@ -11,19 +11,8 @@ import HomePage from './components/client/HomePage';
 import Restaurants from './components/client/Restaurants';
 import MyOrder from './components/client/MyOrder';
 import MyCart from './components/client/MyCart';
+import Menu from './components/client/Menu';
 
-
-// export default (
-//   <Route path="/" component={App}>
-//     <IndexRoute component={HomePage} />
-//     <Route path="courses" component={CoursesPage} />
-//     <Route path="course" component={ManageCoursePage} />
-//     <Route path="course/:id" component={ManageCoursePage} />
-//     <Route path="about" component={AboutPage} />
-//     <Route path="homepage" component={HomePage} />
-//     <Route path="restaurants" component={Restaurants} />
-//   </Route>
-// );
 
 
 export default (
@@ -31,6 +20,7 @@ export default (
     <IndexRoute component={HomePage} />
     <Route path="homepage" component={HomePage} />
     <Route path="restaurants" component={Restaurants} />
+    <Route path="menu" component={Menu} />
     <Route path="order" component={MyOrder} />
     <Route path="cart" component={MyCart} />
   </Route>
