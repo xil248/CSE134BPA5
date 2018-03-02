@@ -21,8 +21,8 @@ import ThankyouSignUpCust from './components/client/ThankyouSignUpCust';
 import ThankyouSignUpRest from './components/client/ThankyouSignUpRest';
 import ThankyouCheckOut from './components/client/ThankyouCheckOut';
 import SignInFail from './components/client/SignInFail';
-
-
+import ChatCust from './components/client/ChatCust';
+import ChatRest from './components/owner/ChatRest';
 
 
 export default (
@@ -43,5 +43,7 @@ export default (
     <Route path="thankyousignuprest" component={ThankyouSignUpRest}/>
     <Route path="thankyoucheckout" component={ThankyouCheckOut}/>
     <Route path="signinfail" component={SignInFail}/>
+    <Route path="chatcust" component={ChatCust}/>
+    <Route path="chatrest" component={ChatRest}/> 
   </Route>
 );
