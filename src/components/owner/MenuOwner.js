@@ -37,6 +37,18 @@ class MenuOwner extends React.Component {
 
   }
 
+  componentWillMount(){
+    // localStorage.removeItem('menuList');
+    
+    if(localStorage.menuList){
+      console.log(localStorage.menuList)
+      this.setState({
+        menuList : JSON.parse(localStorage.menuList)
+      });
+    }
+
+  }
+
   handleAddMenu(){
     this.refs.addMenuModal.style.display = "block";
     this.setState({isAddMenu:true});
@@ -47,8 +59,10 @@ class MenuOwner extends React.Component {
   }
 
   createMenu (menuKey) {
+    console.log(menuKey);
     const curMenu = this.state.menuList[menuKey]
-    var imagePath = "Pizza.png";
+    // var imagePath = "Pizza.png";
+    var imagePath = curMenu['ImgPath'];
     return (  
       <div className="floating-box" ref={menuKey}>
           <img src={require("./../../images/" + imagePath)}  alt="Nozomi" style={{width:'250px', height:'200px'}} />
@@ -65,14 +79,16 @@ class MenuOwner extends React.Component {
     var curMenuList = this.state.menuList;
     delete curMenuList[menuID];
     this.setState({menuList : curMenuList});
+    localStorage.setItem("menuList",JSON.stringify(curMenuList));
   
   }
 
   updateMenu(event){
     const menuID = event.target.id;
     const curMenu = this.state.menuList[menuID];
-    this.setState({isAddMenu:false, itemName:curMenu['Name'], itemPrice:curMenu['Price'], imagePath:curMenu['ImagePath'], curMenuID : menuID});
+    this.setState({isAddMenu:false, itemName:curMenu['Name'], itemPrice:curMenu['Price'], imgPath:curMenu['ImgPath'], curMenuID : menuID});
     this.refs.addMenuModal.style.display = "block";
+
 
   }
 
@@ -91,19 +107,7 @@ class MenuOwner extends React.Component {
 
     idCount ++;
     localStorage.setItem("idCounter", idCount);
-
-    if(localStorage.menuList){
-        var menuList = JSON.parse(localStorage.menuList);
-        menuList[curID] = {Name:name,Price:price,ImgPath:imgPath};
-        localStorage.setItem("menuList",JSON.stringify(menuList));
-        console.log(JSON.parse(localStorage.menuList));
-    }
-    else{ 
-        var curMenu = {};
-        curMenu[curID] = {Name:name,Price:price,ImgPath:imgPath};
-        localStorage.setItem("menuList",JSON.stringify(curMenu));
-    }
-    
+    localStorage.setItem("menuList",JSON.stringify(this.state.menuList));
     this.refs.addMenuModal.style.display = "none";
   }
 
@@ -113,6 +117,7 @@ class MenuOwner extends React.Component {
     curMenuList[this.state.curMenuID]['Price'] = this.state.itemPrice;
     curMenuList[this.state.curMenuID]['ImagePath'] = this.state.imgPath;
     this.setState({menuList:curMenuList});
+    localStorage.setItem("menuList",JSON.stringify(curMenuList));
     this.refs.addMenuModal.style.display = "none";
   }
 
@@ -133,6 +138,7 @@ class MenuOwner extends React.Component {
 
   
   render() {
+    console.log(this.state.menuList);
     return (
       <div>
         <header>
