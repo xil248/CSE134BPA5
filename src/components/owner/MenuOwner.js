@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router';
 import '../../styles/Menu.css'
 // import '../../images/'
+import NavBar from '../client/NavBar';
 
 var idCount = 0;
 
@@ -141,6 +142,7 @@ class MenuOwner extends React.Component {
     console.log(this.state.menuList);
     return (
       <div>
+        <NavBar/>
         <header>
           <h2>Menu</h2>
           <button onClick={this.handleAddMenu}>Add Menu</button>  

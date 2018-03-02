@@ -3,6 +3,7 @@ import {Link} from 'react-router';
 import 'bootstrap/dist/css/bootstrap.css';
 import {browserHistory} from 'react-router';
 import {FormGroup,ControlLabel,FormControl,Checkbox, ButtonGroup, Button, Form, Col} from 'react-bootstrap';
+import NavBar from './NavBar';
 
 class SignUp extends React.Component{
 
@@ -34,6 +35,7 @@ class SignUp extends React.Component{
         // add few checks for validation later
         localStorage.setItem("custemail", email.value);
         localStorage.setItem("custpsw", psw.value);
+        localStorage.setItem("signInAsCust",true);
         browserHistory.push('/thankyousignupcust');
     }
 
@@ -47,6 +49,7 @@ class SignUp extends React.Component{
         // add few checks for validation later
         localStorage.setItem("restemail", email.value);
         localStorage.setItem("restpsw", psw.value);
+        localStorage.setItem("signInAsRest",true);
         browserHistory.push('/thankyousignuprest');
     }
 
@@ -63,7 +66,8 @@ class SignUp extends React.Component{
     render(){
         return (
             <div>
-                <h1>Sign Up</h1>
+                <NavBar/>
+                <h2>Sign Up</h2>
 
                <Form horizontal>
                 <FormGroup>

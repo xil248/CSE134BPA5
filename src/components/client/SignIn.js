@@ -4,6 +4,8 @@ import {Link} from 'react-router';
 import 'bootstrap/dist/css/bootstrap.css';
 import {browserHistory} from 'react-router';
 import {FormGroup,ControlLabel,FormControl,Checkbox, ButtonGroup, Button,Col,Form} from 'react-bootstrap';
+import NavBar from './NavBar';
+
 
 
 class SignIn extends React.Component{
@@ -53,12 +55,14 @@ class SignIn extends React.Component{
 
     handleIsItChecked() {
         console.log(this.state.checkboxValueSignIn ? 'Yes' : 'No');
-      }
+
+    }
 
     render(){
         return (
             <div>
-                <h1>Sign In</h1>    
+                <NavBar/>
+                <h2>Sign In</h2>    
                 <Form horizontal>
                 <FormGroup controlId="formHorizontalEmail">
                     <Col componentClass={ControlLabel} sm={2}>

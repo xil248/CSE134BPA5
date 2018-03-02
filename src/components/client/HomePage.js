@@ -2,13 +2,13 @@ import React from 'react';
 import {Link} from 'react-router';
 import 'bootstrap/dist/css/bootstrap.css';
 import {Carousel} from 'react-bootstrap';
-// import '../../images/'
+import NavBar from './NavBar';
 
 class HomePage extends React.Component {
   render() {
     return (
-      
       <div>
+        <NavBar/>
         <Carousel>
           <Carousel.Item>
             <img  src={require('../../images/hp1.jpg')} width={2000} height={1500} alt="2000x1500"/>

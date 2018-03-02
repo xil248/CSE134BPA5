@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import '../../styles/Menu.css'
+import NavBar from './NavBar';
 
 
 
@@ -69,6 +70,7 @@ class Menu extends React.Component {
   render() {
     return (
       <div>
+        <NavBar/>
         <header>
           <h2>Menu</h2>
         </header>

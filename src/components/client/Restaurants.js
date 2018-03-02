@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import '../../styles/Restaurants.css'
+import NavBar from './NavBar';
 
 
 class Restaurants extends React.Component {
@@ -9,6 +10,7 @@ class Restaurants extends React.Component {
   render() {
     return (
       <div>
+        <NavBar/>
         <h2>Restaurants</h2><br/>
         <Link to="menu">
           <div className="floating-box">

@@ -22,8 +22,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <NavBar/><br/>
-        <div style={{margin:'70px'}}>
+        {/* <NavBar/><br/> */}
+        <div >
           {this.props.children}
         </div>
       </div>

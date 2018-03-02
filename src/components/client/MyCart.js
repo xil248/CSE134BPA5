@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import '../../styles/MyCart.css'
+import NavBar from './NavBar';
 
 class MyCart extends React.Component {
 
@@ -64,6 +65,7 @@ class MyCart extends React.Component {
   render() {
     return (
       <div>
+        <NavBar/>
         <header>
           <h2>My Cart</h2>
         </header>
