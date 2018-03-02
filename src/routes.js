@@ -12,6 +12,7 @@ import Restaurants from './components/client/Restaurants';
 import MyOrder from './components/client/MyOrder';
 import MyCart from './components/client/MyCart';
 import Menu from './components/client/Menu';
+import MenuOwner from './components/owner/MenuOwner';
 
 
 
@@ -23,5 +24,6 @@ export default (
     <Route path="menu" component={Menu} />
     <Route path="order" component={MyOrder} />
     <Route path="cart" component={MyCart} />
+    <Route path="menuOwner" component={MenuOwner}/>
   </Route>
 );
