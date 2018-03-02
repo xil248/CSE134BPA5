@@ -19,6 +19,7 @@ import ThankyouSignInCust from './components/client/ThankyouSignInCust';
 import ThankyouSignInRest from './components/client/ThankyouSignInRest';
 import ThankyouSignUpCust from './components/client/ThankyouSignUpCust';
 import ThankyouSignUpRest from './components/client/ThankyouSignUpRest';
+import ThankyouCheckOut from './components/client/ThankyouCheckOut';
 import SignInFail from './components/client/SignInFail';
 
 
@@ -40,6 +41,7 @@ export default (
     <Route path="thankyousigninrest" component={ThankyouSignInRest}/>
     <Route path="thankyousignupcust" component={ThankyouSignUpCust}/>
     <Route path="thankyousignuprest" component={ThankyouSignUpRest}/>
+    <Route path="thankyoucheckout" component={ThankyouCheckOut}/>
     <Route path="signinfail" component={SignInFail}/>
   </Route>
 );

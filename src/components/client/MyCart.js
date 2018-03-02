@@ -2,6 +2,9 @@ import React from 'react';
 import {Link} from 'react-router';
 import '../../styles/MyCart.css'
 import NavBar from './NavBar';
+import NumericInput from 'react-numeric-input';
+import {browserHistory} from 'react-router';
+
 
 class MyCart extends React.Component {
 
@@ -10,11 +13,14 @@ class MyCart extends React.Component {
     
     this.createCartItem = this.createCartItem.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
+    this.changeQuantity = this.changeQuantity.bind(this);
+    this.checkOut = this.checkOut.bind(this);
   
 
     this.state = {
       cartItemList : {},
       curMenuID : '',
+      quantity : 1
     }
 
   }
@@ -31,6 +37,16 @@ class MyCart extends React.Component {
 
   }
 
+  changeQuantity(event){
+    this.setState({quantity: event.target.value});
+  }
+
+  checkOut(){
+    const curItemList = {};
+    localStorage.setItem("myCart",JSON.stringify(curItemList));
+    browserHistory.push("/thankyoucheckout");
+  }
+
   createCartItem(cartItemID){
 
     const curItem = this.state.cartItemList[cartItemID]
@@ -41,7 +57,8 @@ class MyCart extends React.Component {
         <td style={{width:'400px'}}><img src={require("./../../images/" + imagePath)} style={{width:'250px', height:'200px'}}/></td> 
         <td>  {curItem['Name']}   </td>
         <td>$ {curItem['Price']}  </td>
-        <td><input id = "num'+ id + '" type="number" min="1" max="100" value="1"/></td>
+        {/* <td><input style={{width:"60px"}}type="number" value={this.state.quantity} onChange={this.changeQuantity}/></td> */}
+        <td><NumericInput size={4} min={1} max={100} value={1}/></td>
         <td><button id = {cartItemID} onClick={this.handleDelete}> Delete </button></td> 
       </tr>
     ); 
@@ -81,8 +98,9 @@ class MyCart extends React.Component {
             { Object.keys(this.state.cartItemList).map(cartItemID => this.createCartItem(cartItemID)) }
 
         </table>
-
-    </div>
+        </div>
+        <br/><br/>
+        <button onClick={this.checkOut}>Check Out</button>
       </div>
     );
   }

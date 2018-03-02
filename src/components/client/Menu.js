@@ -40,7 +40,7 @@ class Menu extends React.Component {
       <div className="floating-box" ref={menuKey}>
           <img src={require("./../../images/" + imagePath)}  alt="Img" style={{width:'250px', height:'200px'}} />
           <h2> {curMenu['Name']} </h2>
-          <h4>${curMenu['Price']} </h4>
+          <div style={{fontSize:'20px',marginBottom:'8px'}}>${curMenu['Price']} </div>
           {/* <button className="btn btn-danger" onClick={this.deleteMenu} id={menuKey}> Delete </button> */}
           <button className="btn btn-warning" onClick={this.addToCart} id={menuKey}> Add To Cart </button>
       </div>

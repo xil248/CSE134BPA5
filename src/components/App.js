@@ -3,7 +3,7 @@ import React, {PropTypes} from 'react';
 import Header from './common/Header';
 import NavBar from './client/NavBar';
 import {connect} from 'react-redux';
-import '../styles/Homepage.css';
+// import '../styles/Homepage.css';
 
 // class App extends React.Component {
 //   render() {
@@ -22,10 +22,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {/* <NavBar/><br/> */}
-        <div >
           {this.props.children}
-        </div>
       </div>
     );
   }

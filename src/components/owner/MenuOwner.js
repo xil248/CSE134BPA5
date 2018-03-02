@@ -68,7 +68,7 @@ class MenuOwner extends React.Component {
       <div className="floating-box" ref={menuKey}>
           <img src={require("./../../images/" + imagePath)}  alt="Nozomi" style={{width:'250px', height:'200px'}} />
           <h2> {curMenu['Name']} </h2>
-          <h4>$ { curMenu['Price'] } </h4>
+          <div style={{fontSize:'20px',marginBottom:'8px'}}>${curMenu['Price']} </div>
           <button className="btn btn-danger" onClick={this.deleteMenu} id={menuKey}> Delete </button>
           <button className="btn btn-warning" onClick={this.updateMenu} id={menuKey}> Update </button>
       </div>
@@ -145,8 +145,8 @@ class MenuOwner extends React.Component {
         <NavBar/>
         <header>
           <h2>Menu</h2>
-          <button onClick={this.handleAddMenu}>Add Menu</button>  
         </header>
+        <button onClick={this.handleAddMenu}>Add Item</button>  
         <div ref="addMenuModal" className="modal">
             <div className="modal-content">
                 <span className="close" onClick={this.handleCloseAddMenu}>&times;</span>

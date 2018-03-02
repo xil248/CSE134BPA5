@@ -16,7 +16,7 @@ class Restaurants extends React.Component {
           <div className="floating-box">
             <img src={require('../../images/McDonald.png')}  alt="McDonald" style={{width:'250px', height:'200px'}} />
             <h2> McDonald's </h2>
-            <h3> American </h3>
+            <div style={{fontSize:'20px',marginBottom:'8px'}}>American </div>
             <img src={require("../../images/Rate3.png")} alt="Rate3" style={{width:'60px',height:'15px'}}/>
           </div>
         </Link>
@@ -24,7 +24,7 @@ class Restaurants extends React.Component {
           <div className="floating-box">
             <img src={require('../../images/Tajima_Ramen.png')}  alt="Tajima_Ramen" style={{width:'250px', height:'200px'}} />
             <h2> Tajima Ramen </h2>
-            <h3> Japanese </h3>
+            <div style={{fontSize:'20px',marginBottom:'8px'}}>Japanese </div>
             <img src={require("../../images/Rate3.png")} alt="Rate3" style={{width:'60px',height:'15px'}}/>
           </div>
         </Link>
@@ -32,7 +32,7 @@ class Restaurants extends React.Component {
           <div className="floating-box">
             <img src={require('../../images/Nozomi.png')}  alt="Nozomi" style={{width:'250px', height:'200px'}} />
             <h2> Nozomi </h2>
-            <h3> Japanese </h3>
+            <div style={{fontSize:'20px',marginBottom:'8px'}}>Japanese </div>
             <img src={require("../../images/Rate3.png")} alt="Rate3" style={{width:'60px',height:'15px'}}/>
           </div>
         </Link>
@@ -40,7 +40,7 @@ class Restaurants extends React.Component {
           <div className="floating-box">
             <img src={require('../../images/Sizzling_Pot.png')}  alt="Sizzling_Pot" style={{width:'250px', height:'200px'}} />
             <h2> Sizzling Pot King </h2>
-            <h3> Chinese </h3>
+            <div style={{fontSize:'20px',marginBottom:'8px'}}>Chinese </div>
             <img src={require("../../images/Rate3.png")} alt="Rate3" style={{width:'60px',height:'15px'}}/>
           </div>
         </Link>
@@ -48,7 +48,7 @@ class Restaurants extends React.Component {
           <div className="floating-box">
             <img src={require('../../images/Wings_Empire.png')}  alt="Wings_Empire" style={{width:'250px', height:'200px'}} />
             <h2> Wings Empire </h2>
-            <h3> Barbeque </h3>
+            <div style={{fontSize:'20px',marginBottom:'8px'}}>BBQ </div>
             <img src={require("../../images/Rate3.png")} alt="Rate3" style={{width:'60px',height:'15px'}}/>
           </div>
         </Link>
