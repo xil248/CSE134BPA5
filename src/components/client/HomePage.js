@@ -13,21 +13,21 @@ class HomePage extends React.Component {
           <Carousel.Item>
             <img  src={require('../../images/hp1.jpg')} width={2000} height={1500} alt="2000x1500"/>
             <Carousel.Caption>
-              <h3>Potato and Beer</h3>
+              <div style={{fontSize:'20px'}}>Potato and Beer</div>
               <p>Very Nice</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img  src={require('../../images/hp2.jpg')} width={2000} height={1500} alt="2000x1500"/>
             <Carousel.Caption>
-              <h3>Fish and Chips</h3>
+              <div style={{fontSize:'20px'}}>Fish and Chips</div>
               <p>Very Nice</p>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
             <img  src={require('../../images/hp3.jpeg')} width={2000} height={1500} alt="2000x1500"/>
             <Carousel.Caption>
-              <h3>Breakfast</h3>
+              <div style={{fontSize:'20px'}}>Breakfast</div>
               <p>Very Nice</p>
             </Carousel.Caption>
           </Carousel.Item>

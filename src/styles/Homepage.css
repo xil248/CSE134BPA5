@@ -51,7 +51,9 @@ h1 {
     margin: auto;
 }
 
+
 .carousel-caption h3 {
+    text-align: center;
     color: #fff !important;
 }
 
