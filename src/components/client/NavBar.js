@@ -13,7 +13,6 @@ class NavBar extends React.Component {
       isCust : false,
       isRest : false
     }
-
   }
 
   componentWillMount(){

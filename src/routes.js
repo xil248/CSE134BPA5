@@ -23,6 +23,7 @@ import ThankyouCheckOut from './components/client/ThankyouCheckOut';
 import SignInFail from './components/client/SignInFail';
 import ChatCust from './components/client/ChatCust';
 import ChatRest from './components/owner/ChatRest';
+import MapContainer from './components/client/MapContainer';
 
 
 export default (
@@ -45,5 +46,6 @@ export default (
     <Route path="signinfail" component={SignInFail}/>
     <Route path="chatcust" component={ChatCust}/>
     <Route path="chatrest" component={ChatRest}/> 
+    <Route path="mapcontainer" component={MapContainer}/>
   </Route>
 );

@@ -31,8 +31,6 @@ class Menu extends React.Component {
 
   }
 
-
-
   createMenu (menuKey) {
     const curMenu = this.state.menuList[menuKey]
     var imagePath = curMenu['ImgPath'];

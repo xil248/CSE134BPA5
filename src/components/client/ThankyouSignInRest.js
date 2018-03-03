@@ -8,7 +8,7 @@ class ThankyouSignInRest extends React.Component {
     return (
       <div>
         <NavBar/>
-        <h1>Successfully Sign In. We appreciate your service. </h1>
+        <h1>Successfully Sign In. We appreciate your service.</h1>
 
         <ButtonGroup>
           <Button href="homepage">Back to Homepage</Button>
