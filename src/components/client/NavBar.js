@@ -75,6 +75,9 @@ class NavBar extends React.Component {
         <NavItem >
           <Link to="menuOwner" >Menu Management</Link>
         </NavItem>
+        <NavItem >
+          <Link to="orderowner" >Order History</Link>
+        </NavItem>
         <NavItem>
           <Link to="homepage" onClick={this.logOut}> Log Out</Link>
         </NavItem>

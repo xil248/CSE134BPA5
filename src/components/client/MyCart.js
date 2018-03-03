@@ -44,6 +44,36 @@ class MyCart extends React.Component {
   checkOut(){
     const curItemList = {};
     localStorage.setItem("myCart",JSON.stringify(curItemList));
+    
+    var idOrder;
+    if(localStorage.idOrder){
+        idOrder = localStorage.idOrder;
+    }
+    else{
+        idOrder = 0;
+    }
+    var curID = "Order" + idOrder;
+
+    // localStorage.removeItem("orders");
+    if(localStorage.orders){
+        var orders = JSON.parse(localStorage.orders);
+        orders[curID] = {orderID:curID, customer:localStorage.custemail};
+        localStorage.setItem("orders",JSON.stringify(orders));
+    }
+    else{ 
+        var orders = {};
+        orders[curID] = {orderID:curID, customer:localStorage.custemail};
+        localStorage.setItem("orders",JSON.stringify(orders));
+    }
+    idOrder++;
+    localStorage.setItem("idOrder",idOrder);
+
+
+
+
+
+
+
     browserHistory.push("/thankyoucheckout");
   }
 
