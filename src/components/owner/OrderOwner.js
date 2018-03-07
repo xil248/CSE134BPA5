@@ -41,7 +41,11 @@ class OrderOwner extends React.Component {
       <td> {orderID}  </td>
       <td> {cust} </td>
       <td>February 16, 2018</td>
-      <td> chat </td>
+      <td>
+        <Link to="chatrest">
+        chat 
+        </Link>
+      </td>
     </tr>
     );
 
