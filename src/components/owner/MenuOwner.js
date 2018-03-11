@@ -1,8 +1,11 @@
 import React from 'react';
 import {Link} from 'react-router';
 import '../../styles/Menu.css'
-// import '../../images/'
 import NavBar from '../client/NavBar';
+
+import * as menuActions from '../../actions/menuActions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 var idCount = 0;
 
@@ -42,7 +45,6 @@ class MenuOwner extends React.Component {
     // localStorage.removeItem('menuList');
     
     if(localStorage.menuList){
-      console.log(localStorage.menuList)
       this.setState({
         menuList : JSON.parse(localStorage.menuList)
       });
@@ -51,6 +53,7 @@ class MenuOwner extends React.Component {
   }
 
   handleAddMenu(){
+
     this.refs.addMenuModal.style.display = "block";
     this.setState({isAddMenu:true});
   }
@@ -59,67 +62,131 @@ class MenuOwner extends React.Component {
     this.refs.addMenuModal.style.display = "none";
   }
 
-  createMenu (menuKey) {
-    console.log(menuKey);
-    const curMenu = this.state.menuList[menuKey]
-    // var imagePath = "Pizza.png";
-    var imagePath = curMenu['ImgPath'];
+  createMenu (menu) {
+    console.log(menu);
+    // const curMenu = this.state.menuList[menuKey]
+    // // var imagePath = "Pizza.png";
+    var imagePath = menu['imgPath'];
     return (  
-      <div className="floating-box" ref={menuKey}>
+      <div className="floating-box" ref={menu['id']}>
           <img src={require("./../../images/" + imagePath)}  alt="Nozomi" style={{width:'250px', height:'200px'}} />
-          <h2> {curMenu['Name']} </h2>
-          <div style={{fontSize:'20px',marginBottom:'8px'}}>${curMenu['Price']} </div>
-          <button className="btn btn-danger" onClick={this.deleteMenu} id={menuKey}> Delete </button>
-          <button className="btn btn-warning" onClick={this.updateMenu} id={menuKey}> Update </button>
+          <h2> {menu['name']} </h2>
+          <div style={{fontSize:'20px',marginBottom:'8px'}}>${menu['price']} </div>
+          <button className="btn btn-danger" onClick={this.deleteMenu} id={menu['id']}> Delete </button>
+          <button className="btn btn-warning" onClick={this.updateMenu} id={menu['id']}> Update </button>
       </div>
     );
+    // return (  
+    //   <div className="floating-box" ref={menuKey}>
+    //       <img src={require("./../../images/" + imagePath)}  alt="Nozomi" style={{width:'250px', height:'200px'}} />
+    //       <h2> {curMenu['Name']} </h2>
+    //       <div style={{fontSize:'20px',marginBottom:'8px'}}>${curMenu['Price']} </div>
+    //       <button className="btn btn-danger" onClick={this.deleteMenu} id={menuKey}> Delete </button>
+    //       <button className="btn btn-warning" onClick={this.updateMenu} id={menuKey}> Update </button>
+    //   </div>
+    // );
   }
 
   deleteMenu(event){
     const menuID = event.target.id;
-    var curMenuList = this.state.menuList;
-    delete curMenuList[menuID];
-    this.setState({menuList : curMenuList});
-    localStorage.setItem("menuList",JSON.stringify(curMenuList));
+    console.log("~~~~~~~~~~~~~~")
+    console.log(menuID)
+    // var curMenuList = this.state.menuList;
+    // delete curMenuList[menuID];
+    // this.setState({menuList : curMenuList});
+    // localStorage.setItem("menuList",JSON.stringify(curMenuList));
+    this.props.actions.deleteMenu(menuID)
+    .then(() => {
+      console.log('Succsess~~~~~ DeleteMenu');
+      // console.log(this.props);
+    })
   
   }
 
   updateMenu(event){
     const menuID = event.target.id;
-    const curMenu = this.state.menuList[menuID];
-    this.setState({isAddMenu:false, itemName:curMenu['Name'], itemPrice:curMenu['Price'], imgPath:curMenu['ImgPath'], curMenuID : menuID});
+    console.log(menuID);
+    var curMenu;
+    this.props.menus.map(menu => {
+      if(menu.id == menuID){
+        this.setState({
+          isAddMenu:false, 
+          itemName:menu['name'], 
+          itemPrice:menu['price'], 
+          imgPath:menu['imgPath'], 
+          curMenuID : menuID});
+      }
+    }) 
+    // const curMenu = this.state.menuList[menuID];
+    // this.setState({isAddMenu:false, itemName:curMenu['Name'], itemPrice:curMenu['Price'], imgPath:curMenu['ImgPath'], curMenuID : menuID});
     this.refs.addMenuModal.style.display = "block";
-
-
   }
 
 
 
   handleAddMenuOk(){
+
+   
     var x = this.refs.addMenuForm;
     var name = x.elements[0].value;
     var price = x.elements[1].value;
     var imgPath = x.elements[2].value;
-    var curID = 'menu' + idCount;
-    
-    var curMenu = this.state.menuList;
-    curMenu[curID] = {Name:name,Price:price,ImgPath:imgPath};
-    this.setState({menuList : curMenu});
 
-    idCount ++;
-    localStorage.setItem("idCounter", idCount);
-    localStorage.setItem("menuList",JSON.stringify(this.state.menuList));
+    const menu = {
+      name: name,
+      price: price,
+      imgPath: imgPath
+    }
+    
+
+    
+    this.props.actions.saveMenu(menu)
+    .then(() => {
+      console.log('Succsess~~~~~ AddMenu');
+      // console.log(this.props);
+    })
+
     this.refs.addMenuModal.style.display = "none";
+
+
+
+    // var curID = 'menu' + idCount;
+    
+    // var curMenu = this.state.menuList;
+    // curMenu[curID] = {Name:name,Price:price,ImgPath:imgPath};
+    // this.setState({menuList : curMenu});
+
+    // idCount ++;
+    // localStorage.setItem("idCounter", idCount);
+    // localStorage.setItem("menuList",JSON.stringify(this.state.menuList));
+    // this.refs.addMenuModal.style.display = "none";
   }
 
   handleEditMenuOk(){
-    var curMenuList = this.state.menuList;
-    curMenuList[this.state.curMenuID]['Name'] = this.state.itemName;
-    curMenuList[this.state.curMenuID]['Price'] = this.state.itemPrice;
-    curMenuList[this.state.curMenuID]['ImagePath'] = this.state.imgPath;
-    this.setState({menuList:curMenuList});
-    localStorage.setItem("menuList",JSON.stringify(curMenuList));
+    const newMenu = {
+      id: this.state.curMenuID,
+      name: this.state.itemName,
+      price: this.state.itemPrice,
+      imgPath: this.state.imgPath
+    }
+    // console.log(newMenu);
+    this.props.actions.saveMenu(newMenu)
+    .then(() => {
+      console.log('Succsess~~~~~ AddMenu');
+      // console.log(this.props);
+    })
+
+
+
     this.refs.addMenuModal.style.display = "none";
+
+    // var curMenuList = this.state.menuList;
+    // curMenuList[this.state.curMenuID]['Name'] = this.state.itemName;
+    // curMenuList[this.state.curMenuID]['Price'] = this.state.itemPrice;
+    // curMenuList[this.state.curMenuID]['ImagePath'] = this.state.imgPath;
+    // this.setState({menuList:curMenuList});
+    // localStorage.setItem("menuList",JSON.stringify(curMenuList));
+    // this.refs.addMenuModal.style.display = "none";
   }
 
 
@@ -139,7 +206,9 @@ class MenuOwner extends React.Component {
 
   
   render() {
-    console.log(this.state.menuList);
+
+    const {menus} = this.props;
+    
     return (
       <div>
         <NavBar/>
@@ -164,11 +233,25 @@ class MenuOwner extends React.Component {
             </div>       
         </div>
         <div>  
-          { Object.keys(this.state.menuList).map(menuID => this.createMenu(menuID)) }
+          {/* { Object.keys(this.state.menuList).map(menuID => this.createMenu(menuID)) } */}
+          {menus.map(menu => this.createMenu(menu))}
         </div>
       </div>
     );
   }
 }
 
-export default MenuOwner;
+function mapStateToProps(state, ownProps) {
+  return {
+    menus: state.menus
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(menuActions, dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MenuOwner);
+
