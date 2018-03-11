@@ -14,9 +14,6 @@ class MenuOwner extends React.Component {
   constructor(props){
     super(props);
     
-    if(localStorage.idCounter){
-      idCount = localStorage.idCounter;
-    }
 
     this.handleAddMenu = this.handleAddMenu.bind(this);
     this.handleCloseAddMenu = this.handleCloseAddMenu.bind(this);
@@ -41,16 +38,6 @@ class MenuOwner extends React.Component {
 
   }
 
-  componentWillMount(){
-    // localStorage.removeItem('menuList');
-    
-    if(localStorage.menuList){
-      this.setState({
-        menuList : JSON.parse(localStorage.menuList)
-      });
-    }
-
-  }
 
   handleAddMenu(){
 
@@ -63,7 +50,7 @@ class MenuOwner extends React.Component {
   }
 
   createMenu (menu) {
-    console.log(menu);
+  
     // const curMenu = this.state.menuList[menuKey]
     // // var imagePath = "Pizza.png";
     var imagePath = menu['imgPath'];
@@ -91,10 +78,7 @@ class MenuOwner extends React.Component {
     const menuID = event.target.id;
     console.log("~~~~~~~~~~~~~~")
     console.log(menuID)
-    // var curMenuList = this.state.menuList;
-    // delete curMenuList[menuID];
-    // this.setState({menuList : curMenuList});
-    // localStorage.setItem("menuList",JSON.stringify(curMenuList));
+   
     this.props.actions.deleteMenu(menuID)
     .then(() => {
       console.log('Succsess~~~~~ DeleteMenu');
@@ -143,23 +127,11 @@ class MenuOwner extends React.Component {
     this.props.actions.saveMenu(menu)
     .then(() => {
       console.log('Succsess~~~~~ AddMenu');
-      // console.log(this.props);
+  
     })
 
     this.refs.addMenuModal.style.display = "none";
 
-
-
-    // var curID = 'menu' + idCount;
-    
-    // var curMenu = this.state.menuList;
-    // curMenu[curID] = {Name:name,Price:price,ImgPath:imgPath};
-    // this.setState({menuList : curMenu});
-
-    // idCount ++;
-    // localStorage.setItem("idCounter", idCount);
-    // localStorage.setItem("menuList",JSON.stringify(this.state.menuList));
-    // this.refs.addMenuModal.style.display = "none";
   }
 
   handleEditMenuOk(){
@@ -169,24 +141,17 @@ class MenuOwner extends React.Component {
       price: this.state.itemPrice,
       imgPath: this.state.imgPath
     }
-    // console.log(newMenu);
+
     this.props.actions.saveMenu(newMenu)
     .then(() => {
       console.log('Succsess~~~~~ AddMenu');
-      // console.log(this.props);
+  
     })
 
 
 
     this.refs.addMenuModal.style.display = "none";
 
-    // var curMenuList = this.state.menuList;
-    // curMenuList[this.state.curMenuID]['Name'] = this.state.itemName;
-    // curMenuList[this.state.curMenuID]['Price'] = this.state.itemPrice;
-    // curMenuList[this.state.curMenuID]['ImagePath'] = this.state.imgPath;
-    // this.setState({menuList:curMenuList});
-    // localStorage.setItem("menuList",JSON.stringify(curMenuList));
-    // this.refs.addMenuModal.style.display = "none";
   }
 
 

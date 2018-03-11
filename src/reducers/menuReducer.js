@@ -7,6 +7,7 @@ export default function menuReducer(state = initialState.menus, action) {
       return action.menus;
 
     case types.CREATE_MENU_SUCCESS:
+      console.log('!!!!!!!!!!!!!!!!!!');
     
       return [
         ...state,

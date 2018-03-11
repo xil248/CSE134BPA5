@@ -9,6 +9,13 @@ const menuObjs = [
     name: "Pizza",
     price: "15",
     imgPath: "Pizza.png"
+  },
+  {
+    id: "2",
+    name: "Ramen",
+    price: "18",
+    imgPath: "Ramen.png"
+
   }
 ];
 
