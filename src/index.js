@@ -10,6 +10,7 @@ import {loadCourses} from './actions/courseActions';
 import {loadAuthors} from './actions/authorActions';
 import {loadMenus} from './actions/menuActions';
 import {loadCart} from './actions/cartActions';
+import {loadOrders} from './actions/orderActions'
 import './styles/styles.css'; //Webpack can import CSS files too!
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../node_modules/toastr/build/toastr.min.css';
@@ -19,6 +20,7 @@ store.dispatch(loadCourses());
 store.dispatch(loadAuthors());
 store.dispatch(loadMenus());
 store.dispatch(loadCart());
+store.dispatch(loadOrders())
 
 render(
   <Provider store={store}>

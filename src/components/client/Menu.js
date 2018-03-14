@@ -4,6 +4,8 @@ import '../../styles/Menu.css'
 import NavBar from './NavBar';
 
 import * as cartActions from '../../actions/cartActions';
+import * as menuActions from '../../actions/menuActions';
+
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -16,6 +18,7 @@ class Menu extends React.Component {
     
     this.createMenu = this.createMenu.bind(this);
     this.addToCart = this.addToCart.bind(this);
+    
 
   
     this.state = {
@@ -26,14 +29,12 @@ class Menu extends React.Component {
   }
 
   componentWillMount(){
-    
-    if(localStorage.menuList){
-      this.setState({
-        menuList : JSON.parse(localStorage.menuList)
-      });
-    }
-
+    this.props.menuActions.loadMenus().then(
+      () => {}
+    );
   }
+
+
 
   createMenu (menu) {
     console.log(menu);
@@ -72,20 +73,6 @@ class Menu extends React.Component {
     })
 
 
-    // var curItem = this.state.menuList[curID];
-  
-    // if(localStorage.myCart){
-    //     var myCart = JSON.parse(localStorage.myCart);
-    //     myCart[curID] = {Name:curItem['Name'],Price:curItem['Price'],ImgPath:curItem['ImgPath'],Quantity:1};
-    //     localStorage.setItem("myCart",JSON.stringify(myCart));
-    //     // console.log(JSON.parse(localStorage.menuList));
-    // }
-    // else{ 
-    //     var myCart = {};
-    //     myCart[curID] = {Name:curItem['Name'],Price:curItem['Price'],ImgPath:curItem['ImgPath'],Quantity:1};
-    //     localStorage.setItem("myCart",JSON.stringify(myCart));
-    // }
-
     alert('Item Added');
 
   }
@@ -117,7 +104,8 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(cartActions, dispatch)
+    actions: bindActionCreators(cartActions, dispatch),
+    menuActions: bindActionCreators(menuActions, dispatch)
   };
 }
 

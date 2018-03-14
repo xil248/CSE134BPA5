@@ -3,6 +3,10 @@ import {Link} from 'react-router';
 import '../../styles/Restaurants.css'
 import NavBar from '../client/NavBar';
 
+import * as orderActions from '../../actions/orderActions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 
 
 class OrderOwner extends React.Component {
@@ -14,6 +18,7 @@ class OrderOwner extends React.Component {
     // this.changeQuantity = this.changeQuantity.bind(this);
     // this.checkOut = this.checkOut.bind(this);
     this.createOrder = this.createOrder.bind(this);
+    
   
 
     this.state = {
@@ -22,24 +27,22 @@ class OrderOwner extends React.Component {
 
   }
 
-  componentWillMount(){
-    
-    if(localStorage.orders){
-      console.log(localStorage.orders)
-      this.setState({
-        ordersList : JSON.parse(localStorage.orders)
-      });
-    }
+  // componentWillMount(){
+  //   this.props.orderActions.loadOrders().then(() => {
 
-  }
+  //   })
+  // }
 
-  createOrder(orderID){
 
-    var cust = this.state.ordersList[orderID]['customer'];
+  createOrder(order){
+  
+    const orderID = 'order'+ order['id'];
+    // var cust = this.state.ordersList[orderID]['customer'];
+
     return(
     <tr>
       <td> {orderID}  </td>
-      <td> {cust} </td>
+      <td> {order.custName} </td>
       <td>February 16, 2018</td>
       <td>
         <Link to="chatrest">
@@ -52,6 +55,8 @@ class OrderOwner extends React.Component {
   }
 
   render() {
+    const {orders} = this.props;
+
     return (
       <div>
         <NavBar/>
@@ -66,7 +71,9 @@ class OrderOwner extends React.Component {
                   <th>Date</th>
                   <th>Contact</th>
           </tr>
-          { Object.keys(this.state.ordersList).map(orderID => this.createOrder(orderID)) }
+          {/* { Object.keys(this.state.ordersList).map(orderID => this.createOrder(orderID)) } */}
+          {orders.map(order => this.createOrder(order))}
+
         </table>
         </div>
         
@@ -79,4 +86,19 @@ class OrderOwner extends React.Component {
   
 }
 
-export default OrderOwner;
+// export default OrderOwner;
+
+function mapStateToProps(state, ownProps) {
+  return {
+    orders: state.orders
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    // actions: bindActionCreators(cartActions, dispatch),
+    orderActions: bindActionCreators(orderActions,dispatch)
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderOwner);

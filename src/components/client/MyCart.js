@@ -6,6 +6,7 @@ import NumericInput from 'react-numeric-input';
 import {browserHistory} from 'react-router';
 
 import * as cartActions from '../../actions/cartActions';
+import * as orderActions from '../../actions/orderActions';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
@@ -28,51 +29,33 @@ class MyCart extends React.Component {
 
   }
 
-
   componentWillMount(){
-    
-    if(localStorage.myCart){
-      console.log(localStorage.myCart)
-      this.setState({
-        cartItemList : JSON.parse(localStorage.myCart)
-      });
-    }
+    this.props.actions.loadCart().then(
+      ()=>{
 
+      }
+    )
   }
+
+
+
 
   changeQuantity(event){
     this.setState({quantity: event.target.value});
   }
 
   checkOut(){
-    // const curItemList = {};
-    // localStorage.setItem("myCart",JSON.stringify(curItemList));
-    
-    // var idOrder;
-    // if(localStorage.idOrder){
-    //     idOrder = localStorage.idOrder;
-    // }
-    // else{
-    //     idOrder = 0;
-    // }
-    // var curID = "Order" + idOrder;
-
-    // // localStorage.removeItem("orders");
-    // if(localStorage.orders){
-    //     var orders = JSON.parse(localStorage.orders);
-    //     orders[curID] = {orderID:curID, customer:localStorage.custemail};
-    //     localStorage.setItem("orders",JSON.stringify(orders));
-    // }
-    // else{ 
-    //     var orders = {};
-    //     orders[curID] = {orderID:curID, customer:localStorage.custemail};
-    //     localStorage.setItem("orders",JSON.stringify(orders));
-    // }
-    // idOrder++;
-    // localStorage.setItem("idOrder",idOrder);
-
-
-
+    const orderObj = {
+      id:'',
+      custName:'cust',
+    }
+    // this.props.orderActions.saveOrder(orderObj).then(
+    // console.log(this.props.orders));
+    this.props.orderActions.saveOrder(orderObj)
+    .then(() => {
+      console.log('Save order success!');
+      console.log(this.props.orders)
+    })
 
 
 
@@ -104,23 +87,13 @@ class MyCart extends React.Component {
     .then(() => {
       console.log('Succsess~~~~~ deleteCart');
     })
-    // console.log(event.target.id);
-
-    // var curID = event.target.id;
-    // var curItemList = this.state.cartItemList;
-    // delete curItemList[curID];
-    // this.setState({
-    //   cartItemList : curItemList
-    // });
   
-    // localStorage.setItem("myCart",JSON.stringify(curItemList));
   }
 
 
 
   render() {
     const {carts} = this.props;
-    console.log(carts)
     return (
       <div>
         <NavBar/>
@@ -152,13 +125,15 @@ class MyCart extends React.Component {
 
 function mapStateToProps(state, ownProps) {
   return {
-    carts: state.carts
+    carts: state.carts,
+    orders: state.orders
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(cartActions, dispatch)
+    actions: bindActionCreators(cartActions, dispatch),
+    orderActions: bindActionCreators(orderActions,dispatch)
   };
 }
 

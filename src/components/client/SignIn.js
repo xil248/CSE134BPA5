@@ -5,18 +5,28 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {browserHistory} from 'react-router';
 import {FormGroup,ControlLabel,FormControl,Checkbox, ButtonGroup, Button,Col,Form} from 'react-bootstrap';
 import NavBar from './NavBar';
+import PropTypes from 'prop-types';
 
 
 
 class SignIn extends React.Component{
-    constructor(){
-        super();
+
+    // static contextTypes = {
+
+    //     router: 'ab'
+
+    // }
+
+    constructor(props, context){
+        super(props, context);
         this.state = { checkboxValueSignIn: false};
         this.handleChange = this.handleChange.bind(this);
         this.handleIsItChecked = this.handleIsItChecked.bind(this);
         this.checkUser = this.checkUser.bind(this);
     }
-    
+
+   
+
     checkUser(){
         // get the localstorage
         var emailenter = document.getElementById("signinemail");
@@ -32,19 +42,22 @@ class SignIn extends React.Component{
             // check if rest, then redirect to rest thanks
             if(emailenter.value === restemailget && pswenter.value === restpswget){
                 localStorage.setItem("signInAsRest",true);
-                browserHistory.push("/thankyousigninrest");
+                browserHistory.replace("/thankyousigninrest");
+                // this.context.history.router.push("/thankyousigninrest");
             }
             else{
-                browserHistory.push("/signinfail");
+                browserHistory.replace("/signinfail");
             }
         }
         else{
             if(emailenter.value === custemailget && pswenter.value === custpswget){
                 localStorage.setItem("signInAsCust",true);
-                browserHistory.push("/thankyousignincust");
+                browserHistory.replace("/thankyousignincust");
+                // this.context.history.router.push("/thankyousignincust");
+                // this.props.history("/thankyousignincust");
             }
             else{
-                browserHistory.push("/signinfail");
+                browserHistory.replace("/signinfail");
             }
         }        
     }

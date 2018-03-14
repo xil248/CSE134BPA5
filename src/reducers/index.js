@@ -3,6 +3,7 @@ import courses from './courseReducer';
 import authors from './authorReducer';
 import menus from './menuReducer';
 import carts from './cartReducer';
+import orders from './orderReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
   authors,
   menus,
   carts,
+  orders,
   ajaxCallsInProgress
 });
 

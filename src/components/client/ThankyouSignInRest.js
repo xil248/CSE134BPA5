@@ -10,9 +10,9 @@ class ThankyouSignInRest extends React.Component {
         <NavBar/>
         <h1>Successfully Sign In. We appreciate your service.</h1>
 
-        <ButtonGroup>
-          <Button href="homepage">Back to Homepage</Button>
-        </ButtonGroup>
+       <Link to="homepage">
+          <input value='Back to Homepage' className='btn btn-warning'/>
+        </Link>
       </div>
     );
   }

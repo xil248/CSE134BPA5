@@ -11,9 +11,9 @@ class ThankyouSignUpRest extends React.Component {
         <NavBar/>
         <h1>Welcome new restaurant</h1>
 
-        <ButtonGroup>
-          <Button href="homepage">Back to Homepage</Button>
-        </ButtonGroup>
+        <Link to="homepage">
+          <input value='Back to Homepage' className='btn btn-warning'/>
+        </Link>
       </div>
     );
   }

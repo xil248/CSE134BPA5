@@ -3,5 +3,6 @@ export default {
   courses: [],
   menus:[],
   carts:[],
+  orders:[],
   ajaxCallsInProgress: 0
 };
