@@ -12,7 +12,7 @@ class ThankyouSignUpRest extends React.Component {
         <h1>Welcome new restaurant</h1>
 
         <Link to="homepage">
-          <input value='Back to Homepage' className='btn btn-warning'/>
+          <input value="Back to Homepage" className = "btn btn-warning"/>
         </Link>
       </div>
     );

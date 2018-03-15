@@ -5,52 +5,76 @@ import {browserHistory} from 'react-router';
 import {FormGroup,ControlLabel,FormControl,Checkbox, ButtonGroup, Button, Form, Col} from 'react-bootstrap';
 import NavBar from './NavBar';
 
+import * as userActions from '../../actions/userActions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 class SignUp extends React.Component{
 
-    constructor(){
-        super();
-        this.state = { checkboxValueSignUp: false,
-                        custemail: "",
-                        custpsw: "",
-                        restemail: "",
-                        restpsw: "" };
+    constructor(props){
+        super(props);
+
         this.handleChange = this.handleChange.bind(this);
         this.handleIsItChecked = this.handleIsItChecked.bind(this);
         this.createUserCust = this.createUserCust.bind(this);
         this.createUserRest = this.createUserRest.bind(this);
         this.decideRestCust = this.decideRestCust.bind(this);
+        this.changeEmail = this.changeEmail.bind(this);
+        this.changePsw = this.changePsw.bind(this);
+        this.changeConfirmPsw = this.changeConfirmPsw.bind(this);
+        this.changeAddr = this.changeAddr.bind(this);
+        this.changePhone = this.changePhone.bind(this);
+
+        this.state={
+            signupEmail:'',
+            signupPsw:'',
+            signupConfirmPsw:'',
+            signupAddr:'',
+            signupPhone:'',
+            signupType: 'default'
+        }
     }
 
     handleChange(evt) {
         this.setState({ checkboxValueSignUp: evt.target.checked });
-      }
+    }
 
     createUserCust(){
-        var email = document.getElementById("emailadd");
-        var psw = document.getElementById("pswenter");
-        this.setState({custemail: email});
-        this.setState({custpsw: psw});
+        const newCust = {
+            email: this.state.signupEmail,
+            psw: this.state.signupPsw,
+            confirmpsw: this.state.signupConfirmPsw,
+            addr: this.state.signupAddr,
+            phone: this.state.signupPhone,
+            type: 'cust'
+        }
 
-        // store in local storage
-        // add few checks for validation later
-        localStorage.setItem("custemail", email.value);
-        localStorage.setItem("custpsw", psw.value);
-        localStorage.setItem("signInAsCust",true);
-        browserHistory.push('/thankyousignupcust');
+        this.props.actions.createUser(newCust).then(()=>{
+            console.log("--------userSession----------");
+            console.log(this.props.userSession);
+        });
+        //FIXME
+        browserHistory.replace('/thankyousignupcust');
+        //this.props.history.replace('/thankyousignupcust');
     }
 
     createUserRest(){
-        var email = document.getElementById("emailadd");
-        var psw = document.getElementById("pswenter");
-        this.setState({restemail: email});
-        this.setState({restpsw: psw});
+        const newRest = {
+            email: this.state.signupEmail,
+            psw: this.state.signupPsw,
+            confirmpsw: this.state.signupConfirmPsw,
+            addr: this.state.signupAddr,
+            phone: this.state.signupPhone,
+            type: 'rest'
+        }
 
-        // store in local storage
-        // add few checks for validation later
-        localStorage.setItem("restemail", email.value);
-        localStorage.setItem("restpsw", psw.value);
-        localStorage.setItem("signInAsRest",true);
-        browserHistory.push('/thankyousignuprest');
+        this.props.actions.createUser(newRest).then(()=>{
+            console.log("---------userSession---------");
+            console.log(this.props.userSession);
+        });
+        //FIXME
+        browserHistory.replace('/thankyousignuprest');
+        //this.props.history.replace('/thankyousignuprest');
     }
 
     decideRestCust(){
@@ -63,7 +87,29 @@ class SignUp extends React.Component{
         console.log(this.state.checkboxValueSignUp ? 'Yes' : 'No');
     }
 
+    changeEmail(event){
+        this.setState({signupEmail: event.target.value});
+    }
+
+    changePsw(event){
+        this.setState({signupPsw: event.target.value});
+    }
+
+    changeConfirmPsw(event){
+        this.setState({signupConfirmPsw: event.target.value});
+    }
+
+    changeAddr(event){
+        this.setState({signupAddr: event.target.value});
+    }
+
+    changePhone(event){
+        this.setState({signupPhone: event.target.value});
+    }
+
     render(){
+        const {users} = this.props;
+
         return (
             <div>
                 <NavBar/>
@@ -75,7 +121,7 @@ class SignUp extends React.Component{
                     Email
                     </Col>
                     <Col sm={8}>
-                    <FormControl type="email" placeholder="Email" id="emailadd"/>
+                    <FormControl type="email" placeholder="Email" value={this.state.signupEmail} onChange={this.changeEmail}/>
                     </Col>
                 </FormGroup>
 
@@ -84,7 +130,7 @@ class SignUp extends React.Component{
                     Password
                     </Col>
                     <Col sm={8}>
-                    <FormControl type="password" placeholder="Password" id="pswenter"/>
+                    <FormControl type="password" placeholder="Password" value={this.state.signupPsw} onChange={this.changePsw}/>
                     </Col>
                 </FormGroup>
 
@@ -93,7 +139,7 @@ class SignUp extends React.Component{
                     Confirm Password
                     </Col>
                     <Col sm={8}>
-                    <FormControl type="password" placeholder="Re-enter Password" />
+                    <FormControl type="password" placeholder="Re-enter Password" value={this.state.signupConfirmPsw} onChange={this.changeConfirmPsw}/>
                     </Col>
                 </FormGroup>
 
@@ -102,7 +148,7 @@ class SignUp extends React.Component{
                     Address
                     </Col>
                     <Col sm={8}>
-                    <FormControl type="text" placeholder="Address" />
+                    <FormControl type="text" placeholder="Address" value={this.state.signupAddr} onChange={this.changeAddr}/>
                     </Col>
                 </FormGroup>
 
@@ -111,7 +157,7 @@ class SignUp extends React.Component{
                     Phone Number
                     </Col>
                     <Col sm={8}>
-                    <FormControl type="tel" placeholder="Phone Number" />
+                    <FormControl type="tel" placeholder="Phone Number" value={this.state.signupPhone} onChange={this.changePhone}/>
                     </Col>
                 </FormGroup>
 
@@ -122,12 +168,7 @@ class SignUp extends React.Component{
                 </FormGroup>
 
                 <FormGroup>
-                    <Col smOffset={2} sm={8}>                 
-                    {/*<Button bsStyle="danger" width="50px" href="#">Back to Homepage</Button>
-                    <Button type="submit" bsStyle="success" width="50px"
-                            onClick={function(e){this.state.checkboxValueSignUp == true? 
-                            this.createUserRest: 
-                            this.createUserCust}}>Sign Up</Button>*/}
+                    <Col smOffset={2} sm={8}>
                         <Link to="homepage">
                         <input value="Back to Homepage" className = "btn btn-danger"/>
                         </Link>    
@@ -135,10 +176,24 @@ class SignUp extends React.Component{
                             onClick={this.decideRestCust}/>
                     </Col>
                 </FormGroup>
-                </Form>;
+                </Form>
             </div>
         );
     }
 }
 
-export default SignUp;
+function mapStateToProps(state, ownProps){
+    return {
+        users: state.users,
+        userSession: state.userSession
+    };
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        actions: bindActionCreators(userActions, dispatch)
+    };
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignUp);

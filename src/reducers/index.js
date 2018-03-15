@@ -4,6 +4,8 @@ import authors from './authorReducer';
 import menus from './menuReducer';
 import carts from './cartReducer';
 import orders from './orderReducer';
+import users from './userReducer';
+import userSession from './usersessionReducer';
 import ajaxCallsInProgress from './ajaxStatusReducer';
 
 const rootReducer = combineReducers({
@@ -12,6 +14,8 @@ const rootReducer = combineReducers({
   menus,
   carts,
   orders,
+  users,
+  userSession,
   ajaxCallsInProgress
 });
 

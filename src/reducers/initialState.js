@@ -4,5 +4,7 @@ export default {
   menus:[],
   carts:[],
   orders:[],
+  users:[],
+  userSession:{},
   ajaxCallsInProgress: 0
 };

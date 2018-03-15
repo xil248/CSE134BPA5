@@ -3,6 +3,10 @@ import { Link } from 'react-router';
 import { Button, Navbar, NavItem, Nav } from 'react-bootstrap';
 import '../../styles/Homepage.css'
 
+import * as userActions from '../../actions/userActions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+
 class NavBar extends React.Component {
   constructor(){
     super();
@@ -16,21 +20,33 @@ class NavBar extends React.Component {
   }
 
   componentWillMount(){
-    if(localStorage.signInAsRest){
+    console.log("------will mount in Navbar-------");
+    console.log(this.props.userSession.type);
+    if(this.props.userSession.type == 'rest'){
       this.setState({
-        isRest : JSON.parse(localStorage.signInAsRest)
+        isRest : true
       })
     }
-    if(localStorage.signInAsCust){
+    if(this.props.userSession.type == 'cust'){
       this.setState({
-        isCust : JSON.parse(localStorage.signInAsCust)
+        isCust : true
       })
     }
   }
 
   logOut(){
-    localStorage.setItem("signInAsCust",false);
+/*     localStorage.setItem("signInAsCust",false);
     localStorage.setItem("signInAsRest",false);
+    this.setState({
+      isCust : false,
+      isRest : false
+    }) */
+    /* this.props.userSession.username='';
+    this.props.userSession.type=''; */
+
+    this.props.actions.logOutUser().then(()=>{
+    });
+
     this.setState({
       isCust : false,
       isRest : false
@@ -38,9 +54,9 @@ class NavBar extends React.Component {
   }
 
   renderLinks(){
-    console.log("is Customer---------")
+    console.log("is Customer------NavBar------")
     console.log(this.state.isCust);
-    console.log("is Restaurant---------")
+    console.log("is Restaurant--------NavBar--------")
     console.log(this.state.isRest);
 
     if(this.state.isCust){
@@ -104,11 +120,7 @@ class NavBar extends React.Component {
     }
   }
 
-
-
   render() {
-   
-    
     return(       
       <Navbar StaticTop>
         <Navbar.Header>
@@ -124,4 +136,18 @@ class NavBar extends React.Component {
 }
 
 
-export default NavBar;
+//export default NavBar;
+function mapStateToProps(state, ownProps){
+  return {
+      //users: state.users,
+      userSession: state.userSession
+  };
+}
+
+function mapDispatchToProps(dispatch){
+  return{
+      actions: bindActionCreators(userActions, dispatch)
+  };
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(NavBar);

@@ -11,7 +11,7 @@ class ThankyouCheckOut extends React.Component {
         <h1>Thank You for Your Order :)</h1>
 
         <Link to="homepage">
-          <input value='Back to Homepage' className='btn btn-warning'/>
+          <input value="Back to Homepage" className = "btn btn-warning"/>
         </Link>
       </div>
     );

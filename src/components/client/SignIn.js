@@ -5,61 +5,103 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {browserHistory} from 'react-router';
 import {FormGroup,ControlLabel,FormControl,Checkbox, ButtonGroup, Button,Col,Form} from 'react-bootstrap';
 import NavBar from './NavBar';
-import PropTypes from 'prop-types';
 
-
+import * as userActions from '../../actions/userActions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 class SignIn extends React.Component{
-
-    // static contextTypes = {
-
-    //     router: 'ab'
-
-    // }
-
-    constructor(props, context){
-        super(props, context);
-        this.state = { checkboxValueSignIn: false};
+    constructor(props){
+        super(props);
+        //this.state = { checkboxValueSignIn: false};
         this.handleChange = this.handleChange.bind(this);
         this.handleIsItChecked = this.handleIsItChecked.bind(this);
         this.checkUser = this.checkUser.bind(this);
+        this.changeEmail = this.changeEmail.bind(this);
+        this.changePsw = this.changePsw.bind(this);
+
+        this.state = {
+            inputEmail: '',
+            inputPsw: '',
+            inputType: 'default'
+        }
+    }
+    
+    checkUser(){
+        this.state.checkboxValueSignIn ? 
+            this.checkUserRest(): 
+            this.checkUserCust();
     }
 
-   
+    checkUserRest(){
+        //this.setState({inputType: 'rest'});
+        const user = {
+            email: this.state.inputEmail,
+            psw: this.state.inputPsw,
+            type: 'rest'
+        }
+        console.log("-------checkuserrest----user--");
+        console.log(user);
+        this.props.actions.signinUser(user).then(()=>{
+            console.log("finding the user");
+        });
 
-    checkUser(){
-        // get the localstorage
-        var emailenter = document.getElementById("signinemail");
-        var pswenter = document.getElementById("signinpsw");
-        var custemailget = localStorage.getItem("custemail");
-        var custpswget = localStorage.getItem("custpsw");
-        var restemailget = localStorage.getItem("restemail");
-        var restpswget = localStorage.getItem("restpsw");
+        var id = this.props.userSession.username;
+        console.log("------sign in usersession rest------");
+        console.log(id);
+        console.log(this.props.userSession);
 
-        console.log(custemailget);
-        // check if cust, then redirect to cust thanks
-        if(this.state.checkboxValueSignIn){
-            // check if rest, then redirect to rest thanks
-            if(emailenter.value === restemailget && pswenter.value === restpswget){
-                localStorage.setItem("signInAsRest",true);
-                browserHistory.replace("/thankyousigninrest");
-                // this.context.history.router.push("/thankyousigninrest");
-            }
-            else{
-                browserHistory.replace("/signinfail");
-            }
+        if(id != null){
+            browserHistory.replace('/thankyousigninrest');
+            //this.props.history.replace('/thankyousigninrest');
         }
         else{
-            if(emailenter.value === custemailget && pswenter.value === custpswget){
-                localStorage.setItem("signInAsCust",true);
-                browserHistory.replace("/thankyousignincust");
-                // this.context.history.router.push("/thankyousignincust");
-                // this.props.history("/thankyousignincust");
-            }
-            else{
-                browserHistory.replace("/signinfail");
-            }
-        }        
+            browserHistory.replace('/signinfail');
+            //this.props.history.replace('/signinfail');
+        }
+    }
+
+/*     componentWillUnmount(){
+        this.props.userActions.loadUserSession().then(
+            () => {}
+        );
+    } */
+
+    checkUserCust(){
+        //this.setState({inputType: 'cust'});
+        const user = {
+            email: this.state.inputEmail,
+            psw: this.state.inputPsw,
+            type: 'cust'
+        }
+        console.log("-------checkusercust----user--");
+        console.log(user);
+
+        this.props.actions.signinUser(user).then(()=>{
+            console.log("finding the user");
+        });
+
+        var id = this.props.userSession.username;
+        console.log("------sign in usersession cust------");
+        console.log(id);
+        console.log(this.props.userSession);
+
+        if(id != null){
+            browserHistory.replace('/thankyousignincust');
+            //this.props.history.replace('/thankyousignincust');
+        }
+        else{
+            browserHistory.replace('/signinfail');
+            //this.props.history.replace('/signinfail');
+        }
+    }
+
+    changeEmail(event){
+        this.setState({inputEmail: event.target.value});
+    }
+
+    changePsw(event){
+        this.setState({inputPsw: event.target.value});
     }
 
     handleChange(evt) {
@@ -68,7 +110,6 @@ class SignIn extends React.Component{
 
     handleIsItChecked() {
         console.log(this.state.checkboxValueSignIn ? 'Yes' : 'No');
-
     }
 
     render(){
@@ -82,7 +123,7 @@ class SignIn extends React.Component{
                     Email
                     </Col>
                     <Col sm={8}>
-                    <FormControl type="email" placeholder="Email" id="signinemail" />
+                    <FormControl type="email" placeholder="Email" value={this.state.inputEmail} onChange={this.changeEmail} />
                     </Col>
                 </FormGroup>
 
@@ -91,7 +132,7 @@ class SignIn extends React.Component{
                     Password
                     </Col>
                     <Col sm={8}>
-                    <FormControl type="password" placeholder="Password" id="signinpsw" />
+                    <FormControl type="password" placeholder="Password" value={this.state.inputpsw} onChange={this.changePsw}/>
                     </Col>
                 </FormGroup>
 
@@ -118,4 +159,19 @@ class SignIn extends React.Component{
     }
 }
 
-export default SignIn;
+function mapStateToProps(state, ownProps){
+    return {
+        users: state.users,
+        userSession: state.userSession
+    };
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        actions: bindActionCreators(userActions, dispatch)
+    };
+} 
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn);
+
+/* export default SignIn; */

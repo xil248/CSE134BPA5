@@ -11,7 +11,8 @@ class ThankyouSignInCust extends React.Component {
         <h1>Successfully Sign In. Ready for a meal?</h1>
 
         <Link to="homepage">
-          <input value='Back to Homepage' className='btn btn-warning'/>
+          <input value="Back to Homepage" className = "btn btn-warning"/>
+
         </Link>
       </div>
     );
