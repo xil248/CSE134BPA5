@@ -20,16 +20,31 @@ class NavBar extends React.Component {
   }
 
   componentWillMount(){
-    console.log("------will mount in Navbar-------");
-    console.log(this.props.userSession.type);
-    if(this.props.userSession.type == 'rest'){
+    console.log('?????????????');
+    //console.log(this.props.userSession)
+
+    const theSess = [...this.props.userSession];
+
+    if(theSess.length == 0){
+      this.setState({
+        isCust: false,
+        isRest: false
+      })
+    }
+    else if(theSess[theSess.length-1].type == 'rest'){
       this.setState({
         isRest : true
       })
     }
-    if(this.props.userSession.type == 'cust'){
+    else if(theSess[theSess.length-1].type == 'cust'){
       this.setState({
         isCust : true
+      })
+    }
+    else{
+      this.setState({
+        isCust: false,
+        isRest: false
       })
     }
   }
@@ -54,10 +69,6 @@ class NavBar extends React.Component {
   }
 
   renderLinks(){
-    console.log("is Customer------NavBar------")
-    console.log(this.state.isCust);
-    console.log("is Restaurant--------NavBar--------")
-    console.log(this.state.isRest);
 
     if(this.state.isCust){
       console.log("THIS IS CUST");

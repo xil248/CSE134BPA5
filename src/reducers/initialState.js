@@ -5,6 +5,6 @@ export default {
   carts:[],
   orders:[],
   users:[],
-  userSession:{},
+  userSession:[],
   ajaxCallsInProgress: 0
 };

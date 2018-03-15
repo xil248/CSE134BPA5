@@ -13,14 +13,7 @@ export default function userReducer(state = initialState.users, action){
                 ...state,
                 Object.assign({},action.user)
             ];
-        
-        case types.SIGN_IN_USER_SUCCESS:
-            console.log('user sign in success!!!');
-            return action.userSession;
-
-        case types.LOAD_USER_SESSION_SUCCESS:
-            console.log('aaaaaaaa');
-            return action.userSession;
+    
             
         default:
             return state;

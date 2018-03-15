@@ -18,12 +18,9 @@ export function signInUserSuccess(userSession){
     return { type: types.SIGN_IN_USER_SUCCESS, userSession};
 }
 
-export function signUpUserSuccess(user){
-    return { type: types.SIGN_UP_USER_SUCCESS};
-}
 
-export function logOutUserSuccess(){
-    return {type: types.LOG_OUT_USER_SUCCESS};
+export function logOutUserSuccess(userSession){
+    return {type: types.LOG_OUT_USER_SUCCESS, userSession};
 }
 
 export function loadUser(){
@@ -40,7 +37,7 @@ export function loadUser(){
 export function loadUserSession(){
     return function(dispatch){
         dispatch(beginAjaxCall());
-        return userApi.getAllUsers().then(users => {   
+        return userApi.getUserSession().then(users => {   
             dispatch(loadUserSessionSuccess(users));
         }).catch(error => {
             throw(error);
@@ -68,8 +65,8 @@ export function createUser(userObj){
 export function signinUser(userObj){
     return function (dispatch,getState){
         dispatch(beginAjaxCall());
-        return userApi.findUser(userObj).then(userSession=>{
-            console.log("hhhhhhhhhhhhhhhhhhhhhhhh");
+        return userApi.findUser(userObj).then((userSession)=>{
+            console.log('~~~~~~~~~~~~~~~');
             console.log(userSession);
             dispatch(signInUserSuccess(userSession));
         }).catch(error=>{

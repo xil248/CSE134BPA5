@@ -1,13 +1,29 @@
 import delay from './delay';
 
 const userObjs = [
-
+    {
+        email: 'cust',
+        psw: '123',
+        confirmpsw: '123',
+        addr: '',
+        phone: '',
+        type: 'cust'
+    },
+    {
+        email: 'rest',
+        psw: '123',
+        confirmpsw: '123',
+        addr: '',
+        phone: '',
+        type: 'rest'
+    }
 ];
 
-const userSession = {
+const userSession = [{
     username: '',
     type: ''
-};
+}];
+
 
 
 //This would be performed on the server in a real app. Just stubbing in.
@@ -29,6 +45,15 @@ class UserApi{
         });
     }
 
+    static getUserSession(){
+        return new Promise((resolve,reject)=>{
+            setTimeout(()=>{
+                resolve(Object.assign([],userSession));
+            },delay);
+        });
+    }
+    
+
     static saveUser(userObj){
         userObj = Object.assign({},userObj);
         return new Promise((resolve,reject)=>{
@@ -44,9 +69,12 @@ class UserApi{
     static logoutUser(){
         return new Promise((resolve,reject)=>{
             setTimeout(()=>{
-                userSession.username = null;
-                userSession.type = null;
-                resolve(userSession);
+                // userSession.username = null;
+                // userSession.type = null;
+                const newSess = {username:'',type:''};
+                userSession.push(newSess);
+               
+                resolve(newSess);
             },delay);
         });
     }
@@ -57,32 +85,49 @@ class UserApi{
             setTimeout(()=>{
                 /* userObjs.push(userObj);
                 resolve(userObj); */
-
-                for(var i=0;userObjs.length;i++){
+                // console.log("hhhhhhhhhhhhhhhhhhhhhhhh");
+                // console.log(userObj);
+                // console.log(userObjs);
+                var newSess = {username:'',type:''};
+                for(var i=0; i < userObjs.length; i++){
                     var signupemail = userObjs[i].email;
                     var signuppsw = userObjs[i].psw;
                     var signuptype = userObjs[i].type;
+
                     var signinemail = userObj.email; 
                     var signinpsw = userObj.psw;
                     var signintype = userObj.type;
 
-                    console.log(signupemail == signinemail); 
-                    console.log(signuppsw == signinpsw);
-                    console.log(signuptype == signintype);
 
                     if(signupemail == signinemail && signuppsw == signinpsw 
                         && signuptype == signintype){
                             console.log('------ss--------');
-                            userSession.username = signinemail;
-                            userSession.type = signintype;
-                            resolve(userSession);
+                            newSess = {username:signinemail,type:signintype}
+                            break;
+                            // userSession.username = signinemail;
+                            // userSession.type = signintype;
+                            // const newSess = {username:signinemail,type:signintype}
+                            // userSession.push(newSess);
+                            // console.log(userSession)
+                            // resolve(userSession);
+      
                     }
-                    else{
-/*                         userSession.username = '';
-                        userSession.type = ''; */
-                        resolve(userSession);
-                    }
+                    // else{
+                    //     console.log('------fff--------');
+                    //     // const newSess = {username:'',type:''}
+                    //     // userSession.push(newSess);
+                        
+                    //     resolve(userSession);
+                    // }
                 }
+
+            
+                userSession.push(newSess);
+                // console.log(userSession)
+                resolve(newSess);
+                
+
+
             },delay);
         });
     }
